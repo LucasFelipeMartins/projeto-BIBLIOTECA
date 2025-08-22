@@ -1,24 +1,21 @@
 package model.file;
 
 import java.util.List;
-import model.Pessoa;
 import model.Autor;
 import model.Usuario;
+import model.Livro;
 
 public interface ISerializador {
     
-    // Salva uma lista genérica (pessoas ou livros)
-    String toFile(List<?> lista);
-    
-    // Desserializa lista de Autores
+    // -------- Autores --------
+    String toFileAutores(List<Autor> autores);
     List<Autor> fromFileAutores(String data);
     
-    // Desserializa lista de Usuários
+    // -------- Usuários --------
+    String toFileUsuarios(List<Usuario> usuarios);
     List<Usuario> fromFileUsuarios(String data);
     
-    // Desserializa lista mista de Pessoas (Autor ou Usuario)
-    List<Pessoa> fromFilePessoas(String data);
-    
-    // Desserializa lista genérica de livros (ou qualquer outro tipo)
-    <T> List<T> fromFileLivros(String data, Class<T> clazz);
+    // -------- Livros --------
+    String toFileLivros(List<Livro> livros);
+    List<Livro> fromFileLivros(String data);
 }

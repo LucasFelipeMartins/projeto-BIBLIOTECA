@@ -5,36 +5,31 @@ import model.Pessoa;
 import model.valid.ValidarPessoa;
 import model.dao.IDaoPessoa;
 
-public class PessoaController {
-    
-    private IDaoPessoa repositorio;
+public class PessoaController<T extends Pessoa> {
 
-    public PessoaController(IDaoPessoa repositorio) {
+    private IDaoPessoa<T> repositorio;
+
+    public PessoaController(IDaoPessoa<T> repositorio) {
         this.repositorio = repositorio;
     }
-    
-    // Agora recebe também a lista de gêneros (usada apenas se tipo == Usuario)
-    public void salvar(boolean tipo, String id, String nome, String cpf, List<String> generos) {
-        ValidarPessoa valid = new ValidarPessoa();
-        Pessoa newPessoa = valid.validacao(tipo, id, nome, cpf, generos);
-        repositorio.salvar(newPessoa, tipo);
+
+    public void salvar(T p) {
+        repositorio.salvar(p);
     }
-    
-    public void remover(boolean tipo, String id, String nome, String cpf, List<String> generos) {
-        ValidarPessoa valid = new ValidarPessoa();
-        Pessoa newPessoa = valid.validacao(tipo, id, nome, cpf, generos);
-        repositorio.remover(newPessoa, tipo);
+
+    public void remover(T p) {
+        repositorio.remover(p);
     }
-    
-    public void atualizar(int idPessoa, Pessoa p, boolean tipo) {
-        repositorio.atualizar(idPessoa, p, tipo);
+
+    public void atualizar(int idPessoa, T p) {
+        repositorio.atualizar(idPessoa, p);
     }
-    
-    public Object buscar(int idPessoa, boolean tipo) {
-        return repositorio.buscar(idPessoa, tipo);
+
+    public T buscar(int idPessoa) {
+        return repositorio.buscar(idPessoa);
     }
-    
-    public List<Pessoa> listar(boolean tipo) {
-        return repositorio.listar(tipo);
+
+    public List<T> listar() {
+        return repositorio.listar();
     }
 }

@@ -1,4 +1,5 @@
 model\Autor.class
+model\dao\UsuarioDaoFile.class
 model\dao\IDaoPessoa.class
 controller\LivroController.class
 model\exceptions\PessoaException.class
@@ -10,11 +11,12 @@ model\file\FilePersistence.class
 model\valid\ValidarLivro.class
 model\file\ISerializador.class
 model\Usuario.class
-model\dao\PessoaDaoFile.class
 model\file\SerializadorJSON$1.class
 model\Pessoa.class
+model\dao\AutorDaoFile.class
 model\dao\LivroDaoFile.class
 model\dao\IDaoLivro.class
 model\Livro.class
 com\mycompany\projetobiblioteca\ProjetoBiblioteca.class
+model\file\SerializadorJSON$3.class
 model\valid\ValidarPessoa.class
