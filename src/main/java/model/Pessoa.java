@@ -1,18 +1,6 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import java.util.List;
-
-@JsonTypeInfo(
-    use = JsonTypeInfo.Id.NAME,       // Usa o nome do tipo
-    include = JsonTypeInfo.As.PROPERTY,  // Insere no JSON como uma propriedade
-    property = "tipo"                 // Nome da propriedade no JSON
-)
-@JsonSubTypes({
-    @JsonSubTypes.Type(value = Autor.class, name = "autor"),
-    @JsonSubTypes.Type(value = Usuario.class, name = "usuario")
-})
 
 public abstract class Pessoa {
     protected int id;
