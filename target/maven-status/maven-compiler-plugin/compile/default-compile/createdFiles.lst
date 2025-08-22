@@ -1,6 +1,7 @@
 model\Autor.class
 model\dao\UsuarioDaoFile.class
 model\dao\IDaoPessoa.class
+model\recomendacao\RecomendacaoLivros.class
 controller\LivroController.class
 model\exceptions\PessoaException.class
 model\file\SerializadorJSON$2.class

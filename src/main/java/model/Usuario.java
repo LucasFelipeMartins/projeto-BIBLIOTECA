@@ -10,7 +10,6 @@ public class Usuario extends Pessoa {
     public Usuario() {
         super();
         this.lstGenero = new ArrayList<>();
-        this.lstLivros = new ArrayList<>();
     }
 
     public Usuario(int id, String nome, String cpf, List<Livro> lstLivros, List<String> lstGenero) {

@@ -2,6 +2,7 @@ package com.mycompany.projetobiblioteca;
 
 import controller.LivroController;
 import controller.PessoaController;
+import java.util.Arrays;
 import model.Livro;
 import model.Autor;
 import model.Usuario;
@@ -13,50 +14,46 @@ import model.dao.IDaoPessoa;
 
 import java.util.List;
 import model.avaliacao.AvaliacaoLivro;
+import model.recomendacao.RecomendacaoLivros;
 
 public class ProjetoBiblioteca {
 
     public static void main(String[] args) {
 
-       // ===== Inicializando repositório e controller =====
-        IDaoLivro livroRepo = new LivroDaoFile();
-        LivroController livroController = new LivroController(livroRepo);
+     
+        // ===== Criando livros =====
+        Livro livro1 = new Livro("O Pequeno Príncipe", Arrays.asList("Antoine de Saint-Exupéry"), 1943, null, "Infantil");
+        livro1.addAvaliacao(4.0);
+        livro1.addAvaliacao(5.0);
 
-        // ===== Criando e salvando livros =====
-        livroController.salvar("O Pequeno Príncipe", List.of("Antoine de Saint-Exupéry"), "1943", null, "Infantil");
-        livroController.salvar("1984", List.of("George Orwell"), "1949", null, "Distopia");
+        Livro livro2 = new Livro("1984", Arrays.asList("George Orwell"), 1949, null, "Distopia");
+        livro2.addAvaliacao(4.0);
+        livro2.addAvaliacao(3.0);
 
-        System.out.println("Livros cadastrados:");
-        livroController.listar().forEach(System.out::println);
+        Livro livro3 = new Livro("Harry Potter", Arrays.asList("J.K. Rowling"), 1997, null, "Fantasia");
+        livro3.addAvaliacao(5.0);
 
-        // ===== Avaliando livros =====
-        Livro livro1984 = livroController.buscar("1984");
-        AvaliacaoLivro avaliar1984 = new AvaliacaoLivro(livro1984);
+        Livro livro4 = new Livro("Dom Casmurro", Arrays.asList("Machado de Assis"), 1899,null, "Romance");
+        livro4.addAvaliacao(4.0);
 
-        avaliar1984.adicionarAvaliacao(4.5);
-        avaliar1984.adicionarAvaliacao(3.8);
-        avaliar1984.adicionarAvaliacao(5.0);
+        List<Livro> todosLivros = Arrays.asList(livro1, livro2, livro3, livro4);
 
-        double media1984 = avaliar1984.calcularMedia();
-        System.out.println("\nMédia de avaliações do livro '1984': " + media1984);
+        // ===== Criando usuários =====
+        Usuario usuario1 = new Usuario(1, "Lucas", "123456789", Arrays.asList(livro1), Arrays.asList("Distopia", "Fantasia"));
+        Usuario usuario2 = new Usuario(2, "Mariana", "987654321", Arrays.asList(), Arrays.asList("Romance", "Infantil"));
 
-        // Atualizando livro com as avaliações
-        livroController.atualizar("1984", avaliar1984.getLivro());
+        // ===== Gerando recomendações para Lucas =====
+        RecomendacaoLivros recomendacaoLucas = new RecomendacaoLivros(usuario1, todosLivros);
+        List<Livro> livrosRecomendadosLucas = recomendacaoLucas.gerarRecomendacoes();
 
-        // ===== Avaliando outro livro =====
-        Livro pequenoPrincipe = livroController.buscar("O Pequeno Príncipe");
-        AvaliacaoLivro avaliarPrincipe = new AvaliacaoLivro(pequenoPrincipe);
+        System.out.println("Recomendações para " + usuario1.getNome() + ":");
+        livrosRecomendadosLucas.forEach(l -> System.out.println("- " + l.getTitulo()));
 
-        avaliarPrincipe.adicionarAvaliacao(5.0);
-        avaliarPrincipe.adicionarAvaliacao(4.8);
+        // ===== Gerando recomendações para Mariana =====
+        RecomendacaoLivros recomendacaoMariana = new RecomendacaoLivros(usuario2, todosLivros);
+        List<Livro> livrosRecomendadosMariana = recomendacaoMariana.gerarRecomendacoes();
 
-        double mediaPrincipe = avaliarPrincipe.calcularMedia();
-        System.out.println("\nMédia de avaliações do livro 'O Pequeno Príncipe': " + mediaPrincipe);
-
-        livroController.atualizar("O Pequeno Príncipe", avaliarPrincipe.getLivro());
-
-        // ===== Listar livros atualizados =====
-        System.out.println("\nLivros após avaliações:");
-        livroController.listar().forEach(System.out::println);
+        System.out.println("\nRecomendações para " + usuario2.getNome() + ":");
+        livrosRecomendadosMariana.forEach(l -> System.out.println("- " + l.getTitulo()));
     }
 }
