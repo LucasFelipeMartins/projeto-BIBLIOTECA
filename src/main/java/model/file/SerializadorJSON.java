@@ -2,13 +2,12 @@ package model.file;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import model.Autor;
-import model.Pessoa;
 import model.Usuario;
+import model.Livro;
 
 public class SerializadorJSON implements ISerializador {
 
@@ -18,49 +17,17 @@ public class SerializadorJSON implements ISerializador {
         this.mapper = new ObjectMapper();
     }
 
+    // ----------- Autores -----------
     @Override
-    public String toFile(List<?> pessoas) {
+    public String toFileAutores(List<Autor> autores) {
         try {
-            return mapper.writeValueAsString(pessoas);
+            return mapper.writeValueAsString(autores);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    // Método genérico para carregar pessoas e separar em Autor e Usuario
-    @Override
-    public List<Pessoa> fromFilePessoas(String jsonString) {
-        List<Pessoa> pessoas = new ArrayList<>();
-
-        if (jsonString == null || jsonString.trim().isEmpty()) {
-            return pessoas;
-        }
-
-        try {
-            // Ler o JSON como array de nodes
-            JsonNode arrayNode = mapper.readTree(jsonString);
-            if (arrayNode.isArray()) {
-                for (JsonNode node : arrayNode) {
-                    // Verifica se tem propriedade específica para decidir
-                    if (node.has("lstGenero")) {
-                        // Provavelmente Usuario
-                        Usuario u = mapper.treeToValue(node, Usuario.class);
-                        pessoas.add(u);
-                    } else {
-                        // Provavelmente Autor
-                        Autor a = mapper.treeToValue(node, Autor.class);
-                        pessoas.add(a);
-                    }
-                }
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return pessoas;
-    }
-
-    // Caso queira carregar só Autores
     @Override
     public List<Autor> fromFileAutores(String jsonString) {
         try {
@@ -74,7 +41,17 @@ public class SerializadorJSON implements ISerializador {
         }
     }
 
-    // Caso queira carregar só Usuários
+    // ----------- Usuários -----------
+    @Override
+    public String toFileUsuarios(List<Usuario> usuarios) {
+        try {
+            return mapper.writeValueAsString(usuarios);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
     public List<Usuario> fromFileUsuarios(String jsonString) {
         try {
@@ -88,8 +65,9 @@ public class SerializadorJSON implements ISerializador {
         }
     }
 
-    // Método para salvar livros (assumindo que existe classe Livro)
-    public String toFileLivros(List<?> livros) {
+    // ----------- Livros -----------
+    @Override
+    public String toFileLivros(List<Livro> livros) {
         try {
             return mapper.writeValueAsString(livros);
         } catch (JsonProcessingException e) {
@@ -98,13 +76,13 @@ public class SerializadorJSON implements ISerializador {
         }
     }
 
-    // Método para carregar livros (assumindo classe Livro)
-    public <T> List<T> fromFileLivros(String jsonString, Class<T> clazz) {
+    @Override
+    public List<Livro> fromFileLivros(String jsonString) {
         try {
             if (jsonString == null || jsonString.trim().isEmpty()) {
                 return new ArrayList<>();
             }
-            return mapper.readValue(jsonString, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
+            return mapper.readValue(jsonString, new TypeReference<List<Livro>>() {});
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return new ArrayList<>();

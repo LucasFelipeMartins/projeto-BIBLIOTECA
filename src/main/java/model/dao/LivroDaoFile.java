@@ -33,7 +33,7 @@ public class LivroDaoFile implements IDaoLivro {
         }
         livros.add(livro);
 
-        String jsonData = serializador.toFile(livros);
+        String jsonData = serializador.toFileLivros(livros);
         filePersistence.saveToFile(jsonData, filePath);
         System.out.println("Livro salvo com sucesso no arquivo.");
     }
@@ -43,7 +43,7 @@ public class LivroDaoFile implements IDaoLivro {
         List<Livro> livros = listar();
         if (livros != null) {
             livros.removeIf(l -> l.equals(livro)); // remove livro igual
-            String jsonData = serializador.toFile(livros);
+            String jsonData = serializador.toFileLivros(livros);
             filePersistence.saveToFile(jsonData, filePath);
             System.out.println("Livro removido com sucesso no arquivo.");
         }
@@ -57,7 +57,7 @@ public class LivroDaoFile implements IDaoLivro {
             livros.removeIf(l -> l.getTitulo().equalsIgnoreCase(titulo));
             livros.add(livroAtualizado);
 
-            String jsonData = serializador.toFile(livros);
+            String jsonData = serializador.toFileLivros(livros);
             filePersistence.saveToFile(jsonData, filePath);
             System.out.println("Livro atualizado com sucesso no arquivo.");
         }
@@ -84,7 +84,7 @@ public class LivroDaoFile implements IDaoLivro {
             return new ArrayList<>();
         }
 
-        // Aqui chama o método genérico para desserializar livros
-        return serializador.fromFileLivros(jsonData, Livro.class);
+        // Agora usa o método específico para livros
+        return serializador.fromFileLivros(jsonData);
     }
 }

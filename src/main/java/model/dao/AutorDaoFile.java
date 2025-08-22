@@ -35,7 +35,7 @@ public class AutorDaoFile implements IDaoPessoa {
         List<Autor> autores = listarAutores();
         autores.add((Autor) p);
 
-        String jsonData = serializador.toFile(autores);
+        String jsonData = serializador.toFileAutores(autores);
         filePersistence.saveToFile(jsonData, filePath);
         System.out.println("Autor salvo com sucesso no arquivo.");
     }
@@ -49,7 +49,7 @@ public class AutorDaoFile implements IDaoPessoa {
         List<Autor> autores = listarAutores();
         autores.removeIf(a -> a.equals(p));
 
-        String jsonData = serializador.toFile(autores);
+        String jsonData = serializador.toFileAutores(autores);
         filePersistence.saveToFile(jsonData, filePath);
         System.out.println("Autor removido com sucesso no arquivo.");
     }
@@ -64,7 +64,7 @@ public class AutorDaoFile implements IDaoPessoa {
         autores.removeIf(a -> a.getId() == codPessoa); // supondo que getId() é int
         autores.add((Autor) p);
 
-        String jsonData = serializador.toFile(autores);
+        String jsonData = serializador.toFileAutores(autores);
         filePersistence.saveToFile(jsonData, filePath);
         System.out.println("Autor atualizado com sucesso no arquivo.");
     }

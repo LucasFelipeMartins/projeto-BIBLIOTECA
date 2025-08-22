@@ -35,7 +35,7 @@ public class UsuarioDaoFile implements IDaoPessoa {
         List<Usuario> usuarios = listarUsuarios();
         usuarios.add((Usuario) p);
 
-        String jsonData = serializador.toFile(usuarios);
+        String jsonData = serializador.toFileUsuarios(usuarios);
         filePersistence.saveToFile(jsonData, filePath);
         System.out.println("Usuário salvo com sucesso no arquivo.");
     }
@@ -49,7 +49,7 @@ public class UsuarioDaoFile implements IDaoPessoa {
         List<Usuario> usuarios = listarUsuarios();
         usuarios.removeIf(u -> u.equals(p));
 
-        String jsonData = serializador.toFile(usuarios);
+        String jsonData = serializador.toFileUsuarios(usuarios);
         filePersistence.saveToFile(jsonData, filePath);
         System.out.println("Usuário removido com sucesso no arquivo.");
     }
@@ -64,7 +64,7 @@ public class UsuarioDaoFile implements IDaoPessoa {
         usuarios.removeIf(u -> u.getId() == codPessoa); // supondo que getId() é int
         usuarios.add((Usuario) p);
 
-        String jsonData = serializador.toFile(usuarios);
+        String jsonData = serializador.toFileUsuarios(usuarios);
         filePersistence.saveToFile(jsonData, filePath);
         System.out.println("Usuário atualizado com sucesso no arquivo.");
     }
