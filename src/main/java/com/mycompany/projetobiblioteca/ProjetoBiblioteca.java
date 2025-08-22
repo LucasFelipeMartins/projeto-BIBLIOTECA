@@ -4,80 +4,55 @@ import controller.PessoaController;
 import model.Autor;
 import model.Usuario;
 import model.dao.AutorDaoFile;
-import model.dao.UsuarioDaoFile;
 import model.dao.IDaoPessoa;
+import model.dao.UsuarioDaoFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProjetoBiblioteca {
 
     public static void main(String[] args) {
 
-        // ======== TESTE AUTOR ========
+        // ===== Teste com Autor =====
         IDaoPessoa<Autor> autorRepo = new AutorDaoFile();
-        PessoaController<Autor> autorController = new PessoaController<>(autorRepo);
-
-        // Criar autores
-        Autor autor1 = new Autor(1, "Lucas", "123456789", null);
-        Autor autor2 = new Autor(2, "Maria", "987654321", null);
+        PessoaController<Autor> autorController = new PessoaController<>(autorRepo, Autor.class);
 
         // Salvar autores
-        autorController.salvar(autor1);
-        autorController.salvar(autor2);
-
-        // Listar autores
+        autorController.salvar("1", "Lucas Felipe", "123456789", null);
+        autorController.salvar("3", "Mariana", "987654321", null);
         System.out.println("Autores cadastrados:");
         autorController.listar().forEach(System.out::println);
 
-        // Buscar autor
-        Autor buscado = autorController.buscar(1);
-        System.out.println("Autor buscado: " + buscado);
-
         // Atualizar autor
-        Autor autorAtualizado = new Autor(1, "Lucas Felipe", "123456789", null);
-        autorController.atualizar(1, autorAtualizado);
-        System.out.println("Autores após atualização:");
+        autorController.atualizar("3", "Mariana Silva", "987654321", null);
+        System.out.println("\nAutores após atualização:");
         autorController.listar().forEach(System.out::println);
 
         // Remover autor
-        autorController.remover(autor2);
-        System.out.println("Autores após remoção:");
+        Autor autorParaRemover = autorController.buscar(1);
+        autorController.remover(autorParaRemover);
+        System.out.println("\nAutores após remoção:");
         autorController.listar().forEach(System.out::println);
 
-        // ======== TESTE USUÁRIO ========
+        // ===== Teste com Usuario =====
         IDaoPessoa<Usuario> usuarioRepo = new UsuarioDaoFile();
-        PessoaController<Usuario> usuarioController = new PessoaController<>(usuarioRepo);
-
-        // Criar usuários
-        List<String> generos = new ArrayList<>();
-        generos.add("Ficção");
-        generos.add("Aventura");
-
-        Usuario user1 = new Usuario(1, "Diego", "111222333", null, generos);
-        Usuario user2 = new Usuario(2, "Ana", "444555666", null, null);
+        PessoaController<Usuario> usuarioController = new PessoaController<>(usuarioRepo, Usuario.class);
 
         // Salvar usuários
-        usuarioController.salvar(user1);
-        usuarioController.salvar(user2);
-
-        // Listar usuários
-        System.out.println("Usuários cadastrados:");
+        usuarioController.salvar("5", "Diego", "555555555", List.of("Aventura", "Ficção"));
+        usuarioController.salvar("6", "Ana", "111222333", List.of("Romance"));
+        System.out.println("\nUsuarios cadastrados:");
         usuarioController.listar().forEach(System.out::println);
 
-        // Buscar usuário
-        Usuario userBuscado = usuarioController.buscar(1);
-        System.out.println("Usuário buscado: " + userBuscado);
-
         // Atualizar usuário
-        user1.setNome("Diego Silva");
-        usuarioController.atualizar(1, user1);
-        System.out.println("Usuários após atualização:");
+        usuarioController.atualizar("5", "Diego Silva", "555555555", List.of("Ficção", "Aventura"));
+        System.out.println("\nUsuarios após atualização:");
         usuarioController.listar().forEach(System.out::println);
 
         // Remover usuário
-        usuarioController.remover(user2);
-        System.out.println("Usuários após remoção:");
+        Usuario usuarioParaRemover = usuarioController.buscar(6);
+        usuarioController.remover(usuarioParaRemover);
+        System.out.println("\nUsuarios após remoção:");
         usuarioController.listar().forEach(System.out::println);
     }
 }
