@@ -18,5 +18,6 @@ model\dao\LivroDaoFile.class
 model\dao\IDaoLivro.class
 model\Livro.class
 com\mycompany\projetobiblioteca\ProjetoBiblioteca.class
+model\avaliacao\AvaliacaoLivro.class
 model\file\SerializadorJSON$3.class
 model\valid\ValidarPessoa.class

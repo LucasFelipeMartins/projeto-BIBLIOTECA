@@ -8,8 +8,9 @@ public class ValidarLivro {
 
     public Livro validacao(String titulo, List<String> lstNomeAutor, String anoStr, String avaliacaoStr, String genero) {
 
-        Livro livro = new Livro(null, null, 0, 0.0, null);
-
+        // Cria livro vazio com listas já inicializadas
+        Livro livro = new Livro();
+        
         // Validar título
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new LivroExceptions("Erro - Campo vazio: 'titulo'.");
@@ -39,11 +40,11 @@ public class ValidarLivro {
         // Validar avaliação (opcional)
         if (avaliacaoStr != null && !avaliacaoStr.trim().isEmpty()) {
             try {
-                double avaliacao = Double.parseDouble(avaliacaoStr.trim());
-                if (avaliacao < 0.0 || avaliacao > 5.0) {
+                double nota = Double.parseDouble(avaliacaoStr.trim());
+                if (nota < 0.0 || nota > 5.0) {
                     throw new LivroExceptions("Erro - Avaliação deve estar entre 0.0 e 5.0.");
                 }
-                livro.setAvaliacao(avaliacao);
+                livro.addAvaliacao(nota);
             } catch (NumberFormatException e) {
                 throw new LivroExceptions("Erro - Avaliação deve ser um número decimal.");
             }

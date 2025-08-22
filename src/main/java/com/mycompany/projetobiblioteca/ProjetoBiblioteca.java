@@ -2,91 +2,61 @@ package com.mycompany.projetobiblioteca;
 
 import controller.LivroController;
 import controller.PessoaController;
-import model.Autor;
 import model.Livro;
+import model.Autor;
 import model.Usuario;
+import model.dao.LivroDaoFile;
 import model.dao.AutorDaoFile;
+import model.dao.UsuarioDaoFile;
 import model.dao.IDaoLivro;
 import model.dao.IDaoPessoa;
-import model.dao.LivroDaoFile;
-import model.dao.UsuarioDaoFile;
 
-import java.util.Arrays;
 import java.util.List;
+import model.avaliacao.AvaliacaoLivro;
 
 public class ProjetoBiblioteca {
 
     public static void main(String[] args) {
 
-        try {
-            // ===== CRIAR AUTORES =====
-            IDaoPessoa<Autor> autorRepo = new AutorDaoFile();
-            PessoaController<Autor> autorController = new PessoaController<>(autorRepo, Autor.class);
+       // ===== Inicializando repositório e controller =====
+        IDaoLivro livroRepo = new LivroDaoFile();
+        LivroController livroController = new LivroController(livroRepo);
 
-            autorController.salvar("1", "Lucas Felipe", "123456789", null);
-            autorController.salvar("2", "Mariana Silva", "987654321", null);
+        // ===== Criando e salvando livros =====
+        livroController.salvar("O Pequeno Príncipe", List.of("Antoine de Saint-Exupéry"), "1943", null, "Infantil");
+        livroController.salvar("1984", List.of("George Orwell"), "1949", null, "Distopia");
 
-            System.out.println("Autores cadastrados:");
-            autorController.listar().forEach(System.out::println);
+        System.out.println("Livros cadastrados:");
+        livroController.listar().forEach(System.out::println);
 
-            // ===== CRIAR USUÁRIOS =====
-            IDaoPessoa<Usuario> usuarioRepo = new UsuarioDaoFile();
-            PessoaController<Usuario> usuarioController = new PessoaController<>(usuarioRepo, Usuario.class);
+        // ===== Avaliando livros =====
+        Livro livro1984 = livroController.buscar("1984");
+        AvaliacaoLivro avaliar1984 = new AvaliacaoLivro(livro1984);
 
-            usuarioController.salvar("1", "Diego", "555555555", Arrays.asList("Aventura", "Ficção"));
-            usuarioController.salvar("2", "Ana", "111222333", Arrays.asList("Romance"));
+        avaliar1984.adicionarAvaliacao(4.5);
+        avaliar1984.adicionarAvaliacao(3.8);
+        avaliar1984.adicionarAvaliacao(5.0);
 
-            System.out.println("\nUsuários cadastrados:");
-            usuarioController.listar().forEach(System.out::println);
+        double media1984 = avaliar1984.calcularMedia();
+        System.out.println("\nMédia de avaliações do livro '1984': " + media1984);
 
-            // ===== CRIAR LIVROS =====
-            IDaoLivro livroRepo = new LivroDaoFile();
-            LivroController livroController = new LivroController(livroRepo);
+        // Atualizando livro com as avaliações
+        livroController.atualizar("1984", avaliar1984.getLivro());
 
-            livroController.salvar(
-                    "O Pequeno Príncipe",
-                    Arrays.asList("Lucas Felipe"),
-                    "1943",
-                    null,
-                    "Infantil"
-            );
+        // ===== Avaliando outro livro =====
+        Livro pequenoPrincipe = livroController.buscar("O Pequeno Príncipe");
+        AvaliacaoLivro avaliarPrincipe = new AvaliacaoLivro(pequenoPrincipe);
 
-            livroController.salvar(
-                    "1984",
-                    Arrays.asList("Mariana Silva"),
-                    "1949",
-                    "4.5",
-                    "Distopia"
-            );
+        avaliarPrincipe.adicionarAvaliacao(5.0);
+        avaliarPrincipe.adicionarAvaliacao(4.8);
 
-            System.out.println("\nLivros cadastrados:");
-            livroController.listar().forEach(System.out::println);
+        double mediaPrincipe = avaliarPrincipe.calcularMedia();
+        System.out.println("\nMédia de avaliações do livro 'O Pequeno Príncipe': " + mediaPrincipe);
 
-            // ===== BUSCAR LIVRO =====
-            System.out.println("\nBuscando livro '1984':");
-            Livro buscado = livroController.buscar("1984");
-            System.out.println("Livro encontrado: " + buscado);
+        livroController.atualizar("O Pequeno Príncipe", avaliarPrincipe.getLivro());
 
-            // ===== ATUALIZAR LIVRO =====
-            Livro livroAtualizado = new Livro(
-                    "1984",
-                    Arrays.asList("Mariana Silva"),
-                    1949,
-                    5.0,
-                    "Ficção Científica"
-            );
-            livroController.atualizar("1984", livroAtualizado);
-
-            System.out.println("\nLivros após atualização:");
-            livroController.listar().forEach(System.out::println);
-
-            // ===== REMOVER LIVRO =====
-            livroController.remover(livroAtualizado);
-            System.out.println("\nLivros após remoção:");
-            livroController.listar().forEach(System.out::println);
-
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
+        // ===== Listar livros atualizados =====
+        System.out.println("\nLivros após avaliações:");
+        livroController.listar().forEach(System.out::println);
     }
 }
