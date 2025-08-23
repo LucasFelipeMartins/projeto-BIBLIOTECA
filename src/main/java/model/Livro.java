@@ -59,7 +59,6 @@ public class Livro {
                 '}';
     }
 
-    // Método opcional para calcular média
     public double mediaAvaliacoes() {
         if (avaliacoes.isEmpty()) return 0.0;
         return avaliacoes.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
