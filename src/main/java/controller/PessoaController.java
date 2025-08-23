@@ -9,7 +9,7 @@ public class PessoaController<T extends Pessoa> {
 
     private IDaoPessoa<T> repositorio;
     private ValidarPessoa validador;
-    private Class<T> tipoClasse; // Para saber se é Usuario ou Autor
+    private Class<T> tipoClasse;
 
     public PessoaController(IDaoPessoa<T> repositorio, Class<T> tipoClasse) {
         this.repositorio = repositorio;
@@ -17,18 +17,15 @@ public class PessoaController<T extends Pessoa> {
         this.tipoClasse = tipoClasse;
     }
 
-    // Salvar com validação
     public void salvar(String id, String nome, String cpf, List<String> lstGenero) {
         T pessoaValidada = validarDados(id, nome, cpf, lstGenero);
         repositorio.salvar(pessoaValidada);
     }
 
-    // Remover (sem validação)
     public void remover(T p) {
         repositorio.remover(p);
     }
 
-    // Atualizar com validação
     public void atualizar(String id, String nome, String cpf, List<String> lstGenero) {
         T pessoaValidada = validarDados(id, nome, cpf, lstGenero);
         repositorio.atualizar(pessoaValidada.getId(), pessoaValidada);
@@ -42,9 +39,8 @@ public class PessoaController<T extends Pessoa> {
         return repositorio.listar();
     }
 
-    // ======= MÉTODO AUXILIAR =======
     private T validarDados(String id, String nome, String cpf, List<String> lstGenero) {
-        boolean tipoUsuario = tipoClasse.equals(model.Usuario.class); // define se é Usuario
+        boolean tipoUsuario = tipoClasse.equals(model.Usuario.class); 
         Pessoa p = validador.validacao(tipoUsuario, id, nome, cpf, lstGenero);
         return tipoClasse.cast(p);
     }

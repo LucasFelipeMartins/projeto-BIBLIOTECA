@@ -13,14 +13,14 @@ public class RecomendacaoLivros {
 
     public RecomendacaoLivros(Usuario usuario, List<Livro> todosLivros) {
         this.usuario = usuario;
-        // garante lista válida
+        
         this.todosLivros = (todosLivros != null) ? todosLivros : new ArrayList<>();
     }
 
     public List<Livro> gerarRecomendacoes() {
         List<Livro> recomendados = new ArrayList<>();
 
-        // listas válidas
+        
         List<String> livrosLidos = (usuario.getLstLivros() != null) ? usuario.getLstLivros() : new ArrayList<>();
         List<String> generosPref = (usuario.getLstGenero() != null) ? usuario.getLstGenero() : new ArrayList<>();
 
