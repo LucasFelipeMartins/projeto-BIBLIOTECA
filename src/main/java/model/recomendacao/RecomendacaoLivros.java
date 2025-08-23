@@ -20,13 +20,13 @@ public class RecomendacaoLivros {
     public List<Livro> gerarRecomendacoes() {
         List<Livro> recomendados = new ArrayList<>();
 
-        // garante listas válidas no usuário
-        List<Livro> livrosLidos = (usuario.getLstLivros() != null) ? usuario.getLstLivros() : new ArrayList<>();
+        // listas válidas
+        List<String> livrosLidos = (usuario.getLstLivros() != null) ? usuario.getLstLivros() : new ArrayList<>();
         List<String> generosPref = (usuario.getLstGenero() != null) ? usuario.getLstGenero() : new ArrayList<>();
 
         for (Livro livro : todosLivros) {
             // Já foi lido?
-            if (livrosLidos.contains(livro)) continue;
+            if (livrosLidos.contains(livro.getTitulo())) continue;
 
             // Gênero preferido?
             if (!generosPref.contains(livro.getGenero())) continue;
@@ -44,6 +44,6 @@ public class RecomendacaoLivros {
             }
         }
 
-        return recomendados; // sempre retorna lista (mesmo que vazia)
+        return recomendados;
     }
 }

@@ -12,7 +12,7 @@ public class Usuario extends Pessoa {
         this.lstGenero = new ArrayList<>();
     }
 
-    public Usuario(int id, String nome, String cpf, List<Livro> lstLivros, List<String> lstGenero) {
+    public Usuario(int id, String nome, String cpf, List<String> lstLivros, List<String> lstGenero) {
         super(id, nome, cpf, lstLivros);
         this.lstGenero = lstGenero;
     }

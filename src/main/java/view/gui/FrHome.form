@@ -132,6 +132,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ADCIONAR LIVRO LIDO"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddLivroActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

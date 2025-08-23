@@ -61,6 +61,7 @@ public class DlgLivrosRecomendados extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
+    
     public void atualizarTabela(List<Livro> lstLivro) {
         
 	TMCadLivro tmCadAluno = new TMCadLivro(lstLivro);

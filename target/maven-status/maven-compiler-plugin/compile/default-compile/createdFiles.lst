@@ -21,6 +21,7 @@ model\recomendacao\RecomendacaoLivros.class
 model\exceptions\PessoaException.class
 controller\PessoaController.class
 view\TableModel\TMCadLivro.class
+view\dialogs\DlgAdcionarLivro.class
 view\dialogs\DlgCadLivro$1.class
 view\TableModel\TMCadAutor.class
 view\dialogs\DlgRecomendacao.class
@@ -45,6 +46,7 @@ view\dialogs\DlgCadUsuario$4.class
 model\dao\LivroDaoFile.class
 model\valid\ValidarPessoa.class
 view\dialogs\DlgCadAutor$2.class
+view\dialogs\DlgAdcionarLivro$1.class
 controller\LivroController.class
 model\file\SerializadorJSON$2.class
 view\dialogs\DlgCadLivro$5.class
@@ -54,5 +56,7 @@ view\gui\FrHome$2.class
 view\dialogs\DlgLivrosRecomendados.class
 view\dialogs\DlgCadAutor$3.class
 model\Livro.class
+view\dialogs\DlgAddLivros$2.class
 view\dialogs\DlgCadAutor$6.class
 model\avaliacao\AvaliacaoLivro.class
+view\gui\FrHome$5.class

@@ -8,6 +8,7 @@ import model.exceptions.PessoaException;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Livro;
 
 public class UsuarioDaoFile implements IDaoPessoa<Usuario> {
 
@@ -57,6 +58,31 @@ public class UsuarioDaoFile implements IDaoPessoa<Usuario> {
         throw new PessoaException("Usuário não encontrado");
     }
 
+    public void addLivro(Usuario u, String l){
+        if (u.getLstLivros() == null) {
+        u.setLstLivros(new ArrayList<>());
+        }
+
+        // Evita duplicatas
+        if (!u.getLstLivros().contains(l)) {
+            u.getLstLivros().add(l);
+        }
+
+        // Atualiza o usuário na lista antes de salvar
+        List<Usuario> usuarios = listar();
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i).getId() == u.getId()) {
+                usuarios.set(i, u); // substitui o usuário modificado
+                break;
+            }
+        }
+
+        String jsonData = serializador.toFileUsuarios(usuarios);
+        filePersistence.saveToFile(jsonData, filePath);
+
+        System.out.println("Usuário salvo com sucesso.");
+    }
+    
     @Override
     public List<Usuario> listar() {
         String jsonData = filePersistence.loadFromFile(filePath);

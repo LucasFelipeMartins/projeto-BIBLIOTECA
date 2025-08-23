@@ -6,13 +6,13 @@ public abstract class Pessoa {
     protected int id;
     protected String nome;
     protected String cpf;
-    protected List<Livro> lstLivros;
+    protected List<String> lstLivros;
 
     // Construtores, getters e setters
 
     public Pessoa() {}
 
-    public Pessoa(int id, String nome, String cpf, List<Livro> lstLivros) {
+    public Pessoa(int id, String nome, String cpf, List<String> lstLivros) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -43,11 +43,11 @@ public abstract class Pessoa {
         this.cpf = cpf;
     }
 
-    public List<Livro> getLstLivros() {
+    public List<String> getLstLivros() {
         return lstLivros;
     }
 
-    public void setLstLivros(List<Livro> lstLivros) {
+    public void setLstLivros(List<String> lstLivros) {
         this.lstLivros = lstLivros;
     }
 

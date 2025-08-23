@@ -1,5 +1,6 @@
 package view.gui;
 
+import view.dialogs.DlgAddLivros;
 import view.dialogs.DlgCadAutor;
 import view.dialogs.DlgCadLivro;
 import view.dialogs.DlgCadUsuario;
@@ -74,6 +75,11 @@ public class FrHome extends javax.swing.JFrame {
         btnAddLivro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAddLivro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/livros.png"))); // NOI18N
         btnAddLivro.setText("ADCIONAR LIVRO LIDO");
+        btnAddLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddLivroActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnAddLivro);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,6 +124,11 @@ public class FrHome extends javax.swing.JFrame {
         DlgRecomendacao tela = new DlgRecomendacao(this,true);
         tela.setVisible(true);
     }//GEN-LAST:event_btnRecomendacaoActionPerformed
+
+    private void btnAddLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLivroActionPerformed
+        DlgAddLivros tela = new DlgAddLivros(this, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnAddLivroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

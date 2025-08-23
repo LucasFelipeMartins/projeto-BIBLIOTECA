@@ -2,6 +2,8 @@ package view.dialogs;
 
 import controller.LivroController;
 import controller.PessoaController;
+import java.util.List;
+import model.Livro;
 import model.Usuario;
 import model.dao.IDaoPessoa;
 import model.dao.LivroDaoFile;
@@ -96,17 +98,19 @@ LivroController livroController = new LivroController(repositorio);
     }// </editor-fold>//GEN-END:initComponents
 
     private void grdUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdUsuarioMouseClicked
-        int linha = grdUsuario.getSelectedRow();
-        
-        
+    int linha = grdUsuario.getSelectedRow();
+        if (linha < 0) return;
+
         TMCadUsuario tmCadUsuario = (TMCadUsuario) grdUsuario.getModel(); 
         Usuario user = tmCadUsuario.getObejctUsuario(linha);
-            
-      
-        
+
+        // Cria recomendação
         RecomendacaoLivros r = new RecomendacaoLivros(user, livroController.listar());
-        
-        DlgLivrosRecomendados tela = new DlgLivrosRecomendados(this, true, r.gerarRecomendacoes());
+        List<Livro> livrosRecomendados = r.gerarRecomendacoes();
+
+        // Atualiza a tabela do diálogo
+        DlgLivrosRecomendados tela = new DlgLivrosRecomendados(this, true, livrosRecomendados);
+        tela.atualizarTabela(livrosRecomendados); // garante atualização
         tela.setVisible(true);
         
     }//GEN-LAST:event_grdUsuarioMouseClicked

@@ -10,7 +10,7 @@ public class Autor extends Pessoa {
         this.lstLivros = new ArrayList<>();
     }
 
-    public Autor(int id, String nome, String cpf, List<Livro> lstLivros) {
+    public Autor(int id, String nome, String cpf, List<String> lstLivros) {
         super(id, nome, cpf, lstLivros);
     }
 
