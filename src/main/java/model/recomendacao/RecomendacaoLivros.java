@@ -13,28 +13,37 @@ public class RecomendacaoLivros {
 
     public RecomendacaoLivros(Usuario usuario, List<Livro> todosLivros) {
         this.usuario = usuario;
-        this.todosLivros = todosLivros;
+        // garante lista válida
+        this.todosLivros = (todosLivros != null) ? todosLivros : new ArrayList<>();
     }
 
     public List<Livro> gerarRecomendacoes() {
         List<Livro> recomendados = new ArrayList<>();
 
+        // garante listas válidas no usuário
+        List<Livro> livrosLidos = (usuario.getLstLivros() != null) ? usuario.getLstLivros() : new ArrayList<>();
+        List<String> generosPref = (usuario.getLstGenero() != null) ? usuario.getLstGenero() : new ArrayList<>();
+
         for (Livro livro : todosLivros) {
             // Já foi lido?
-            if (usuario.getLstLivros().contains(livro)) continue;
+            if (livrosLidos.contains(livro)) continue;
 
             // Gênero preferido?
-            if (!usuario.getLstGenero().contains(livro.getGenero())) continue;
+            if (!generosPref.contains(livro.getGenero())) continue;
 
             // Média das avaliações
-            double media = livro.getAvaliacoes().isEmpty() ? 0.0 :
-                    livro.getAvaliacoes().stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+            double media = (livro.getAvaliacoes() == null || livro.getAvaliacoes().isEmpty())
+                    ? 0.0
+                    : livro.getAvaliacoes().stream()
+                          .mapToDouble(Double::doubleValue)
+                          .average()
+                          .orElse(0.0);
 
             if (media > 3.0) {
                 recomendados.add(livro);
             }
         }
 
-        return recomendados;
+        return recomendados; // sempre retorna lista (mesmo que vazia)
     }
 }

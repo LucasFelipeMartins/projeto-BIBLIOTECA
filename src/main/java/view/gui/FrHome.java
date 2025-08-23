@@ -1,6 +1,9 @@
 package view.gui;
 
+import view.dialogs.DlgCadAutor;
+import view.dialogs.DlgCadLivro;
 import view.dialogs.DlgCadUsuario;
+import view.dialogs.DlgRecomendacao;
 
 public class FrHome extends javax.swing.JFrame {
 
@@ -41,16 +44,31 @@ public class FrHome extends javax.swing.JFrame {
         btnCadAutor.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         btnCadAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/homem-de-negocios.png"))); // NOI18N
         btnCadAutor.setText("CAD DE AUTOR");
+        btnCadAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadAutorActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnCadAutor);
 
         btnCadLivro.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         btnCadLivro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/abra-o-livro.png"))); // NOI18N
         btnCadLivro.setText("CAD DE LIVRO");
+        btnCadLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadLivroActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnCadLivro);
 
         btnRecomendacao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRecomendacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pilha-de-livros.png"))); // NOI18N
         btnRecomendacao.setText("SISTEMA DE RECOMENDAÇÔES");
+        btnRecomendacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecomendacaoActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnRecomendacao);
 
         btnAddLivro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -85,6 +103,21 @@ public class FrHome extends javax.swing.JFrame {
         DlgCadUsuario tela = new DlgCadUsuario(this, true);
         tela.setVisible(true);
     }//GEN-LAST:event_btnCadUsuarioActionPerformed
+
+    private void btnCadAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadAutorActionPerformed
+        DlgCadAutor tela = new DlgCadAutor(this, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnCadAutorActionPerformed
+
+    private void btnCadLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadLivroActionPerformed
+        DlgCadLivro tela = new DlgCadLivro(this, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnCadLivroActionPerformed
+
+    private void btnRecomendacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecomendacaoActionPerformed
+        DlgRecomendacao tela = new DlgRecomendacao(this,true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnRecomendacaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
